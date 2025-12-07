@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  ogp:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: ogp
+      DB_USER: ogpuser
+      DB_PASS: ogppassword
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.6
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ogp
+      MYSQL_USER: ogpuser
+      MYSQL_PASSWORD: ogppassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
